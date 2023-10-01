@@ -1,6 +1,6 @@
 {
   "name": "vue2-swc-jest",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "SWC plugin to transform Jest tests (ts/js) for Vue 2",
   "type": "module",
   "exports": "./index.js",
@@ -43,7 +43,7 @@
   },
   "dependencies": {
     "@cspotcode/source-map": "^0.8.0",
-    "@swc/core": "^1.3.89",
+    "@swc/core": "^1.3.91",
     "@vue/component-compiler-utils": "^3.3.0",
     "chalk": "^5.3.0",
     "css-tree": "^2.3.1"
