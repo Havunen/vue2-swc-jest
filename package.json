@@ -8,8 +8,7 @@
     "require": "./dist/index.cjs"
   },
   "files": [
-    "lib/index.js",
-    "dist"
+    "dist/*"
   ],
   "keywords": [
     "swc",
