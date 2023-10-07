@@ -1,5 +1,5 @@
 /**
-  * vue2-swc-jest v0.1.1
+  * vue2-swc-jest v0.2.1
   * (c) 2023 Sampo Kivistö <havunen>
   * @license MIT
   */
@@ -1086,27 +1086,29 @@ async function runAsync(src, filename, config) {
   }
 }
 
+function getCacheKey(
+    fileData,
+    filename,
+    {config, configString, instrument, rootDir}
+) {
+    return crypto
+        .createHash('md5')
+        .update(
+            swcJest.createTransformer().getCacheKey(fileData, filename, {
+                config,
+                configString,
+                instrument,
+                rootDir
+            }),
+            'hex'
+        )
+        .digest('hex')
+}
+
 var index = {
     process: runSync,
     processAsync: runAsync,
-    getCacheKey: function getCacheKey(
-        fileData,
-        filename,
-        {config, configString, instrument, rootDir}
-    ) {
-        return crypto
-            .createHash('md5')
-            .update(
-                swcJest.createTransformer().getCacheKey(fileData, filename, {
-                    config,
-                    configString,
-                    instrument,
-                    rootDir
-                }),
-                'hex'
-            )
-            .digest('hex')
-    },
+    getCacheKey: getCacheKey
 };
 
-export { index as default };
+export { index as default, getCacheKey, runSync as process, runAsync as processAsync };

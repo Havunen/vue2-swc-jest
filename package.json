@@ -1,6 +1,6 @@
 {
   "name": "vue2-swc-jest",
-  "version": "0.2.0",
+  "version": "0.2.1",
   "description": "SWC plugin to transform Jest tests (ts/js) for Vue 2",
   "type": "module",
   "exports": {

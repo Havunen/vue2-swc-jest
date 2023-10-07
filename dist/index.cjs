@@ -1,9 +1,11 @@
 /**
-  * vue2-swc-jest v0.1.1
+  * vue2-swc-jest v0.2.1
   * (c) 2023 Sampo Kivistö <havunen>
   * @license MIT
   */
 'use strict';
+
+Object.defineProperty(exports, '__esModule', { value: true });
 
 var crypto = require('crypto');
 var swcJest = require('@swc/jest');
@@ -1108,27 +1110,32 @@ async function runAsync(src, filename, config) {
   }
 }
 
+function getCacheKey(
+    fileData,
+    filename,
+    {config, configString, instrument, rootDir}
+) {
+    return crypto
+        .createHash('md5')
+        .update(
+            swcJest.createTransformer().getCacheKey(fileData, filename, {
+                config,
+                configString,
+                instrument,
+                rootDir
+            }),
+            'hex'
+        )
+        .digest('hex')
+}
+
 var index = {
     process: runSync,
     processAsync: runAsync,
-    getCacheKey: function getCacheKey(
-        fileData,
-        filename,
-        {config, configString, instrument, rootDir}
-    ) {
-        return crypto
-            .createHash('md5')
-            .update(
-                swcJest.createTransformer().getCacheKey(fileData, filename, {
-                    config,
-                    configString,
-                    instrument,
-                    rootDir
-                }),
-                'hex'
-            )
-            .digest('hex')
-    },
+    getCacheKey: getCacheKey
 };
 
-module.exports = index;
+exports.default = index;
+exports.getCacheKey = getCacheKey;
+exports.process = runSync;
+exports.processAsync = runAsync;
